@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const cookieParser = require('cookie-parser')
 
 const app = express();
 
@@ -30,11 +31,9 @@ const urlDatabase = {
 };
 
 
-
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
 });
-
 
 
 app.get("/", (req, res) => {
@@ -51,6 +50,10 @@ app.get("/", (req, res) => {
 //   res.render("hello_world", templateVars);
 // });
 
+app.get("/urls/new", (req, res) => {
+  res.render("urls_new");
+});
+
 
 app.get("/urls", (req, res) => {
   const templateVars = { urls: urlDatabase };
@@ -64,21 +67,18 @@ app.get("/urls/:shortURL", (req, res) => {
 });
 
 
-  
   //....
   app.post("/urls", (req, res) => {
     const shortURL = generateRandomString() 
     const longURL = req.body.longURL
     urlDatabase[shortURL] = longURL
-    res.redirect(`/urls ${shortURL}`)
+    res.redirect(`/urls/${shortURL}`)
   });
 
 app.get("/u/:shortURL", (req, res) => {
   // const longURL = ...
   res.redirect(longURL);
 });
-
-
 
 
 app.get("/urls.json", (req, res) => {
