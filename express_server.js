@@ -93,3 +93,13 @@ app.get("/urls.json", (req, res) => {
       res.redirect('/urls');
    
   });
+
+
+  app.post("/urls/:id", (req, res) => {
+ 
+   
+   const shortURL = req.params.id;
+      urlDatabase[shortURL].longURL = req.body.newURL;
+      res.redirect('/urls');
+    
+  });
