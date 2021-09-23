@@ -141,3 +141,17 @@ app.get("/urls.json", (req, res) => {
   });
  
   
+
+  app.post('/register', (req, res) => {
+   
+  
+  
+        users[user_id] = {
+          user_id,
+          email: req.body.email,
+          password: req.body.password
+        };
+
+        req.session.user_id = user_id;
+        res.redirect('/urls');
+      } )
