@@ -30,6 +30,10 @@ const urlDatabase = {
   "9sm5xK": "http://www.google.com"
 };
 
+const users = { };
+
+
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
@@ -56,6 +60,7 @@ app.get("/urls/new", (req, res) => {
 
 
 app.get("/urls", (req, res) => {
+  const user_id = req.session.user_id
   const templateVars = { urls: urlDatabase };
   res.render("urls_index", templateVars);
 });
@@ -103,3 +108,36 @@ app.get("/urls.json", (req, res) => {
       res.redirect('/urls');
     
   });
+
+
+
+  app.post("/login", (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+
+    const templateVars = {
+      username: req.cookies["username"],
+      password: req.cookies["password"]
+    
+    };
+    res.render("urls_index", templateVars);
+
+  });
+
+
+  app.post("/logout", (req, res) => {
+    res.redirect('/urls');
+  });
+
+
+  app.get('/register', (req, res) => {
+    if (req.session.user_id) {
+      res.redirect('/urls');
+      return;
+    }
+  
+    const templateVars = {user: users[req.session.user_id]};
+    res.render('urls_registration', templateVars);
+  });
+ 
+  
