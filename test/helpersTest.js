@@ -16,14 +16,14 @@ const testUsers = {
 };
 
 describe('getUserByEmail', function() {
-  it('should return a user with valid email', function() {
+  it('email >>>> user', function() {
     const user = getUserByEmail("user@example.com", testUsers)
     const expectedOutput = "userRandomID";
     assert.equal(user, testUsers.userRandomID)
     // Write your assert statement here
   })
 
-  it('should return undefined when there is no matching email', () => {
+  it('no matching email >>> undefined', () => {
     const user = getUserByEmail('ghostperson@example.com', testUsers);
     assert.equal(user, undefined);
   });
